@@ -1,0 +1,15 @@
+services:
+  gateway:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      PROVIDER: mock          # openai for OpenAI/Ollama
+      EMBEDDER: hash          # st | openai
+      MOCK_LATENCY: "0.6"
+  prometheus:
+    image: prom/prometheus
+    ports: ["9090:9090"]
+    volumes: ["./prometheus.yml:/etc/prometheus/prometheus.yml"]
+  grafana:
+    image: grafana/grafana
+    ports: ["3000:3000"]
